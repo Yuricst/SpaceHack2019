@@ -59,8 +59,8 @@ vp = sqrt(Mu/rp(1,1));
 a = (ra + rp)./2;
 
 % compute pass time
-thetastart = 2* atan( sqrt((1-e)/(1+e)) * tand(90/2));
-thetaend = 2*pi - thetastart;
+Estart = 2* atan( sqrt((1-e)/(1+e)) * tand(90/2));
+Eend = 2*pi - Estart;
 
 % thruster performance
 Isp = 240;
@@ -70,14 +70,10 @@ c = Isp*g/1000;
 for i = 1:100
     P(i) = 1*pi*sqrt(a(i)^3/Mu);
     
-    E1(i) = 2*atan( sqrt((1-e(i))/(1+e(i))) * tan(thetastart/2) );
-    E2(i) = 2*pi - E1(i);
-    %E2(i) = 2*atan( sqrt((1-e(i))/(1+e(i))) * tan(thetaend/2) );
-    
-    M1(i) = E1(i) - e(i)*sin(E1(i));
+    M1(i) = Estart - e(i)*sin(Estart);
     t1(i) = M1(i)*P(i)/(2*pi);
     
-    M2(i) = E2(i) - e(i)*sin(E2(i));
+    M2(i) = Eend - e(i)*sin(Eend);
     t2(i) = M2(i)*P(i)/(2*pi);
     
     dt(i) = t2(i) - t1(i);
@@ -104,8 +100,8 @@ grid on; grid minor;
 
 subplot(2,1,2)
 plot(alt_apogee, dtP);
-yline(0.7,'--r')
-chosen_apogee = 5377;
+yline(0.65,'--r')
+chosen_apogee = 6400;
 xline(chosen_apogee,'--k')
 
 xlabel('Apogee altitude [km]');
@@ -141,13 +137,7 @@ choice.aratio = choice.a/RE;
 choice.e = (choice.ra - choice.rp)/(choice.rp + choice.ra);
 
 %% Place orbit by 3rds of E (mean anomaly)
-theta_sat0 = 0;
-E_sat1 = 2*pi()/3;
-theta_sat1 = 2*atan(tan(E_sat1/2)*sqrt((1+e)/(1-e)));
-theta_sat1_deg = theta_sat1*180/pi();
-theta_sat2_deg = 2*theta_sat1_deg;
-
-% E_sat2 = 2*2*pi()/3;
-% theta_sat2 = 2*atan(tan(E_sat2/2)*sqrt((1+e)/(1-e)));
+theta0 = 0;
+theta1 = atan(tan()*sqrt((1));
 
 
