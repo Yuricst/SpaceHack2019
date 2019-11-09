@@ -118,6 +118,7 @@ grid on; grid minor;
 figure
 subplot(2,1,1)
 plot(alt_apogee,dv_req);
+xline(chosen_apogee,'--k')
 xlabel('Apogee altitude [km]');
 ylabel('\DeltaV required [km/s]');
 title('\DeltaV required to enter from altitude 1200 km');
@@ -126,6 +127,7 @@ grid on; grid minor;
 
 subplot(2,1,2)
 plot(alt_apogee,mfrac);
+xline(chosen_apogee,'--k')
 xlabel('Apogee altitude [km]');
 ylabel('Mass fraction');
 title('Mass fraction from altitude 1200 km with Isp 200 s');
@@ -139,6 +141,8 @@ choice.ra = RE + chosen_apogee;
 choice.a = (choice.rp + choice.ra)/2;
 choice.aratio = choice.a/RE;
 choice.e = (choice.ra - choice.rp)/(choice.rp + choice.ra);
+choice.P = 2*pi*sqrt(choice.a^3/Mu);
+choice.P_h = choice.P/(60*60);
 
 %% Place orbit by 3rds of E (mean anomaly)
 theta_sat0 = 0;
@@ -149,5 +153,5 @@ theta_sat2_deg = 2*theta_sat1_deg;
 
 % E_sat2 = 2*2*pi()/3;
 % theta_sat2 = 2*atan(tan(E_sat2/2)*sqrt((1+e)/(1-e)));
-
+choice.vp = sqrt(Mu*(2/choice.rp - 1/choice.a));
 
